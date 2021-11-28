@@ -1,11 +1,21 @@
 import fs from 'fs';
 import lodash from 'lodash';
+import { fileURLToPath } from 'url';
+import * as path from 'path';
+import { dirname } from 'path';
+import parsersFunction from './parsers.js';
 
-const readFile = (file1, file2) => {
-  const data1 = fs.readFileSync(file1);
-  const data2 = fs.readFileSync(file2);
-  const student1 = JSON.parse(data1);
-  const student2 = JSON.parse(data2);
+const fileInfo = (file) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const getFixturePath = (filename) => path.join(__dirname, '..', filename);
+  return parsersFunction(fs.readFileSync(file), getFixturePath(file));
+};
+
+const fileOperation = (file1, file2) => {
+  const student1 = fileInfo(file1);
+  const student2 = fileInfo(file2);
+
   const arrFromFirstObj = Object.keys(student1);
   const arrFromSecondObj = Object.keys(student2);
   const sum = lodash.sortBy([...arrFromFirstObj, ...arrFromSecondObj]);
@@ -33,4 +43,4 @@ const readFile = (file1, file2) => {
   return result;
 };
 
-export default readFile;
+export default fileOperation;

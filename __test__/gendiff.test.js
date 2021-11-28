@@ -2,7 +2,7 @@ import { test, expect } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import { dirname } from 'path';
-import readFile from '../src/fileDiff';
+import fileOperation from '../bin/fileOperation.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,5 +17,5 @@ test('first check', () => {
  +  timeout: 20
  +  verbose: true
 }`;
-  expect(readFile(getFixturePath('file1.json'), getFixturePath('file2.json'))).toBe(expected);
+  expect(fileOperation(getFixturePath('file1.json'), getFixturePath('file2.json'))).toBe(expected);
 });

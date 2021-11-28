@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import readFile from '../src/fileDiff.js';
+import fileOperation from './fileOperation.js';
 
 const program = new Command();
 
@@ -12,7 +12,7 @@ program
   .option('-f, --format [type]', 'output format')
   .description('Compares two configuration files and shows a difference.')
   .action((file1, file2) => {
-    readFile(file1, file2);
+    fileOperation(file1, file2);
   });
 
 program.parse();
